@@ -3,12 +3,16 @@
 <head>
 	<title>	</title>
 	<script>
-		function startTimer(duration) {
+		function startTimer() {
 			var display = document.querySelector('#time');
 			var duration = parseFloat(localStorage.getItem("time"));
+			var font = document.getElementById("time");
+			var count = 20;
 		    setInterval(function () {
 		    	if (duration < 10) {
-					display.textContent = "00:00:0"+duration;
+		    		font.style.fontSize = count+"em";
+					count = count + 1;
+					display.textContent = "00:00:0"+duration;	
 		    	} else {
 		    		display.textContent = "00:00:"+duration;
 		    	}
@@ -17,25 +21,27 @@
 				duration = parseFloat(localStorage.getItem("time"));
 		        if (duration <= 0) {
 		            window.location.href="https://www.youtube.com/watch?v=8YWl7tDGUPA";
+		            count = 20;
 		        } else {
-		        	duration = duration -1;
+		        	duration--;
 		        }
 		    }, 1000);
 		}
 		window.onload = function () {
+			
 			var countdowntime = parseFloat(localStorage.getItem("time"));
 			if (isNaN(countdowntime)) {
 				var time = 47;
 				localStorage.setItem("time", time.toString());
-				startTimer(time);
+				startTimer();
 			} else {
 				if (countdowntime > 0) {
-					startTimer(countdowntime);
+					startTimer();
 				} else {
 					var time = 47;
 					localStorage.setItem("time", time.toString());
 					countdowntime = parseFloat(localStorage.getItem("time"));
-					startTimer(countdowntime);
+					startTimer();
 				}
 			}
 		};
